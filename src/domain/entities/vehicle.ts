@@ -112,7 +112,13 @@ export const updateVehicle = (
 	vehicle: Vehicle,
 	params: UpdateVehicleParams
 ): Result<Vehicle, string> => {
-	const updates: Partial<Omit<Vehicle, 'id' | 'ownerId' | 'createdAt'>> = {};
+	const updates: {
+		manufacturer?: string;
+		model?: string;
+		fuelType?: FuelType;
+		memo?: string;
+		updatedAt?: Date;
+	} = {};
 
 	if (params.manufacturer !== undefined) {
 		if (params.manufacturer.trim() === '') {

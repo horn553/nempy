@@ -146,7 +146,15 @@ export const updateFuelRecord = (
 	fuelRecord: FuelRecord,
 	params: UpdateFuelRecordParams
 ): Result<FuelRecord, string> => {
-	const updates: Partial<Omit<FuelRecord, 'id' | 'vehicleId' | 'totalCost' | 'createdAt'>> = {};
+	const updates: {
+		date?: Date;
+		gasStationName?: string;
+		odometer?: number;
+		fuelPrice?: number;
+		fuelAmount?: number;
+		isFullTank?: boolean;
+		updatedAt?: Date;
+	} = {};
 
 	if (params.date !== undefined) {
 		if (!(params.date instanceof Date) || isNaN(params.date.getTime())) {

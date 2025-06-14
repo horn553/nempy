@@ -82,7 +82,11 @@ export const createUser = (params: CreateUserParams): Result<User, string> => {
 };
 
 export const updateUser = (user: User, params: UpdateUserParams): Result<User, string> => {
-	const updates: Partial<Omit<User, 'id' | 'googleId' | 'createdAt'>> = {};
+	const updates: {
+		name?: string;
+		email?: string;
+		updatedAt?: Date;
+	} = {};
 
 	if (params.name !== undefined) {
 		if (params.name.trim() === '') {
