@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import {
-	Result,
 	Ok,
 	Err,
 	isOk,
@@ -67,7 +66,7 @@ describe('Result type', () => {
 	describe('mapErr function', () => {
 		it('should not map Ok value', () => {
 			const result = Ok(42);
-			const mapped = mapErr(result, (err) => new Error('Modified'));
+			const mapped = mapErr(result, () => new Error('Modified'));
 			expect(mapped).toEqual({ ok: true, value: 42 });
 		});
 
@@ -95,7 +94,7 @@ describe('Result type', () => {
 		it('should not flatMap Err value', () => {
 			const error = new Error('Original error');
 			const result = Err(error);
-			const flatMapped = flatMap(result, (x) => Ok(x * 2));
+			const flatMapped = flatMap(result, () => Ok(42));
 			expect(flatMapped).toEqual({ ok: false, error });
 		});
 	});
