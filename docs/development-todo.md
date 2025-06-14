@@ -4,12 +4,12 @@
 
 ### 1-A: プロジェクト初期設定
 
-- [ ] SvelteKitプロジェクトの作成
-- [ ] TypeScript設定
-- [ ] ESLint, Prettier設定
-- [ ] Git pre-commit hook設定
-- [ ] Vitest設定
-- [ ] GitHub Actions CI/CD設定
+- [x] SvelteKitプロジェクトの作成
+- [x] TypeScript設定
+- [x] ESLint, Prettier設定
+- [x] Git pre-commit hook設定
+- [x] Vitest設定
+- [x] GitHub Actions CI/CD設定
 
 ### 1-B: インフラ設定
 
