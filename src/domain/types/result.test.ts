@@ -87,7 +87,7 @@ describe('Result type', () => {
 		it('should flatMap Ok value to Err', () => {
 			const result = Ok(42);
 			const error = new Error('Error in flatMap');
-			const flatMapped = flatMap(result, (x) => Err(error));
+			const flatMapped = flatMap(result, () => Err(error));
 			expect(flatMapped).toEqual({ ok: false, error });
 		});
 
