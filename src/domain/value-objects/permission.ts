@@ -1,4 +1,5 @@
-import { Result, Ok, Err } from '../types/result';
+import type { Result } from '../types/result';
+import { Ok, Err } from '../types/result';
 
 export type PermissionLevel = 'viewer' | 'editor' | 'admin';
 

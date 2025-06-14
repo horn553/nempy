@@ -126,7 +126,7 @@ describe('Result type', () => {
 		});
 
 		it('unwrapOrElse should call function for Err', () => {
-			const result = Err<number, string>('Error message');
+			const result = Err('Error message');
 			expect(unwrapOrElse(result, (err) => err.length)).toBe(13);
 		});
 	});

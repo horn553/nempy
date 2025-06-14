@@ -1,4 +1,5 @@
-import { Result, Ok, Err } from '../types/result';
+import type { Result } from '../types/result';
+import { Ok, Err } from '../types/result';
 
 export type FuelType = 'gasoline' | 'diesel' | 'hybrid' | 'plugin_hybrid' | 'electric';
 
@@ -111,7 +112,7 @@ export const updateVehicle = (
 	vehicle: Vehicle,
 	params: UpdateVehicleParams
 ): Result<Vehicle, string> => {
-	const updates: Partial<Vehicle> = {};
+	const updates: Partial<Omit<Vehicle, 'id' | 'ownerId' | 'createdAt'>> = {};
 
 	if (params.manufacturer !== undefined) {
 		if (params.manufacturer.trim() === '') {

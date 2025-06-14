@@ -1,4 +1,5 @@
-import { Result, Ok, Err } from '../types/result';
+import type { Result } from '../types/result';
+import { Ok, Err } from '../types/result';
 
 export interface FuelRecord {
 	readonly id: string;
@@ -145,7 +146,7 @@ export const updateFuelRecord = (
 	fuelRecord: FuelRecord,
 	params: UpdateFuelRecordParams
 ): Result<FuelRecord, string> => {
-	const updates: Partial<FuelRecord> = {};
+	const updates: Partial<Omit<FuelRecord, 'id' | 'vehicleId' | 'totalCost' | 'createdAt'>> = {};
 
 	if (params.date !== undefined) {
 		if (!(params.date instanceof Date) || isNaN(params.date.getTime())) {

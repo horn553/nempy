@@ -1,4 +1,5 @@
-import { Result, Ok, Err } from '../types/result';
+import type { Result } from '../types/result';
+import { Ok, Err } from '../types/result';
 
 export interface User {
 	readonly id: string;
@@ -81,7 +82,7 @@ export const createUser = (params: CreateUserParams): Result<User, string> => {
 };
 
 export const updateUser = (user: User, params: UpdateUserParams): Result<User, string> => {
-	const updates: Partial<User> = {};
+	const updates: Partial<Omit<User, 'id' | 'googleId' | 'createdAt'>> = {};
 
 	if (params.name !== undefined) {
 		if (params.name.trim() === '') {
