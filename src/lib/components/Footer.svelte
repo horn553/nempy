@@ -6,9 +6,7 @@
 				<span class="font-semibold">nempy</span>
 				<span class="text-sm text-gray-500">- 燃費管理アプリ</span>
 			</div>
-			<div class="text-sm text-gray-500">
-				© 2024 nempy. All rights reserved.
-			</div>
+			<div class="text-sm text-gray-500">© 2024 nempy. All rights reserved.</div>
 		</div>
 	</div>
 </footer>

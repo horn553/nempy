@@ -11,12 +11,9 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-			},
-		},
+				sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+			}
+		}
 	},
-	plugins: [
-		forms,
-		typography,
-	],
+	plugins: [forms, typography]
 };
