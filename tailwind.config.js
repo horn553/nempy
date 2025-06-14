@@ -1,8 +1,8 @@
-const { join } = require('path');
-const forms = require('@tailwindcss/forms');
-const typography = require('@tailwindcss/typography');
+import { join } from 'path';
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
 
-module.exports = {
+export default {
 	darkMode: 'class',
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',

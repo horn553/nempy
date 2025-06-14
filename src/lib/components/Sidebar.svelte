@@ -13,7 +13,7 @@
 
 <nav class="p-4 h-full">
 	<ul class="space-y-2">
-		{#each navigationItems as item}
+		{#each navigationItems as item (item.href)}
 			<li>
 				<a
 					href={item.href}
