@@ -1,0 +1,25 @@
+name = "nempy"
+main = "build/index.js"
+compatibility_date = "2024-06-15"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 Database configurations for different environments
+[[d1_databases]]
+binding = "DB"
+database_name = "nempy-local"
+database_id = "local"
+migrations_dir = "./drizzle"
+
+[env.preview]
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "nempy-preview"
+database_id = "preview-database-id"
+migrations_dir = "./drizzle"
+
+[env.production]
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "nempy-production"
+database_id = "production-database-id"
+migrations_dir = "./drizzle"

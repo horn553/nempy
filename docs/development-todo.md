@@ -41,21 +41,21 @@
 
 ### 2-A: ドメインモデル実装
 
-- [ ] Userエンティティ
-- [ ] Vehicleエンティティ
-- [ ] FuelRecordエンティティ
-- [ ] 権限（Permission）値オブジェクト
-- [ ] Result型の実装
-- [ ] 共通バリデーションルール
+- [x] Userエンティティ
+- [x] Vehicleエンティティ
+- [x] FuelRecordエンティティ
+- [x] 権限（Permission）値オブジェクト
+- [x] Result型の実装
+- [x] 共通バリデーションルール
 
 ### 2-B: データベーススキーマ
 
-- [ ] usersテーブル
-- [ ] vehiclesテーブル
-- [ ] fuel_recordsテーブル
-- [ ] vehicle_permissionsテーブル
-- [ ] マイグレーションスクリプト
-- [ ] シードデータ
+- [x] usersテーブル
+- [x] vehiclesテーブル
+- [x] fuel_recordsテーブル
+- [x] vehicle_permissionsテーブル
+- [x] マイグレーションスクリプト
+- [x] シードデータ
 
 ### 2-C: 認証基盤
 

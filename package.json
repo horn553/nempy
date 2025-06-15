@@ -14,6 +14,14 @@
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate:local": "wrangler d1 migrations apply nempy-local --local",
+		"db:migrate:preview": "wrangler d1 migrations apply nempy-preview --env preview",
+		"db:migrate:production": "wrangler d1 migrations apply nempy-production --env production",
+		"db:create:local": "wrangler d1 create nempy-local",
+		"db:create:preview": "wrangler d1 create nempy-preview",
+		"db:create:production": "wrangler d1 create nempy-production",
+		"db:studio": "drizzle-kit studio",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build"
 	},
@@ -30,6 +38,8 @@
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
 		"autoprefixer": "^10.4.21",
+		"better-sqlite3": "^11.10.0",
+		"drizzle-kit": "^0.31.1",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-storybook": "^9.0.9",
@@ -48,13 +58,16 @@
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",
 		"vite": "^6.2.6",
-		"vitest": "^3.2.3"
+		"vitest": "^3.2.3",
+		"wrangler": "^4.20.0"
 	},
 	"dependencies": {
+		"@cloudflare/workers-types": "^4.20250614.0",
 		"@floating-ui/dom": "^1.7.1",
 		"@skeletonlabs/skeleton": "^2.11.0",
 		"@tailwindcss/forms": "^0.5.10",
 		"@tailwindcss/typography": "^0.5.16",
-		"@types/node": "^24.0.1"
+		"@types/node": "^24.0.1",
+		"drizzle-orm": "^0.44.2"
 	}
 }

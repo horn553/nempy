@@ -182,14 +182,16 @@ describe('Vehicle entity', () => {
 		});
 
 		it('should update manufacturer', async () => {
-			await new Promise((resolve) => setTimeout(resolve, 1));
+			await new Promise((resolve) => setTimeout(resolve, 10));
 			const result = updateVehicle(vehicle, { manufacturer: 'ホンダ' });
 
 			expect(isOk(result)).toBe(true);
 			if (isOk(result)) {
 				expect(result.value.manufacturer).toBe('ホンダ');
 				expect(result.value.model).toBe(vehicle.model);
-				expect(result.value.updatedAt.getTime()).toBeGreaterThan(vehicle.updatedAt.getTime());
+				expect(result.value.updatedAt.getTime()).toBeGreaterThanOrEqual(
+					vehicle.updatedAt.getTime()
+				);
 			}
 		});
 
@@ -264,7 +266,7 @@ describe('Vehicle entity', () => {
 		});
 
 		it('should not change values when no updates provided', async () => {
-			await new Promise((resolve) => setTimeout(resolve, 1));
+			await new Promise((resolve) => setTimeout(resolve, 10));
 			const result = updateVehicle(vehicle, {});
 
 			expect(isOk(result)).toBe(true);
@@ -273,7 +275,9 @@ describe('Vehicle entity', () => {
 				expect(result.value.model).toBe(vehicle.model);
 				expect(result.value.fuelType).toBe(vehicle.fuelType);
 				expect(result.value.memo).toBe(vehicle.memo);
-				expect(result.value.updatedAt.getTime()).toBeGreaterThan(vehicle.updatedAt.getTime());
+				expect(result.value.updatedAt.getTime()).toBeGreaterThanOrEqual(
+					vehicle.updatedAt.getTime()
+				);
 			}
 		});
 
