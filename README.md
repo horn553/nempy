@@ -8,7 +8,14 @@
 
 ## ✨ 主な機能
 
-- 🔐 **Googleアカウント認証** - 安全でシンプルなログイン
+### 現在実装済み ✅
+
+- 🔐 **Google OAuth 2.0認証** - 安全でシンプルなログインシステム
+- 👤 **ユーザー管理** - セッション管理とユーザー情報の保存
+- 🎨 **レスポンシブUI** - Tailwind CSSによるモダンなデザイン
+
+### 実装予定 🚧
+
 - 🚙 **複数車両管理** - 家族の車を一元管理
 - ⛽ **給油記録管理** - 詳細な給油履歴の記録・編集
 - 📊 **燃費分析** - リアルタイムでの燃費計算・可視化
@@ -21,14 +28,16 @@
 
 - **SvelteKit** - モダンなWebアプリケーションフレームワーク
 - **TypeScript** - 型安全な開発環境
-- **Skeleton UI** - 美しいUIコンポーネント
+- **Tailwind CSS** - ユーティリティファーストのCSSフレームワーク
 
 ### バックエンド・インフラ
 
 - **Cloudflare Workers** - エッジコンピューティング
-- **Cloudflare D1** - SQLiteベースのデータベース
+- **Cloudflare D1** - SQLiteベースのデータベース（本番環境）
+- **SQLite** - 開発環境用データベース
 - **Drizzle ORM** - 型安全なORM
-- **Lucia** - OAuth 2.0認証
+- **Arctic** - OAuth 2.0クライアントライブラリ
+- **Oslo** - セキュリティライブラリ
 
 ### 開発・CI/CD
 
@@ -63,6 +72,18 @@ npm run dev
 # ブラウザで自動的に開く場合
 npm run dev -- --open
 ```
+
+### Google OAuth設定
+
+認証機能を利用するには、Google Cloud Consoleでの設定が必要です：
+
+1. [Google Cloud Console](https://console.cloud.google.com/) にアクセス
+2. 新しいプロジェクトを作成
+3. 「APIs & Services」→「Credentials」→「OAuth client ID」を作成
+4. リダイレクトURIに `http://localhost:5173/auth/google/callback` を追加
+5. `.env.example`をコピーして`.env`を作成し、認証情報を設定
+
+📖 **詳細な環境設定**: [環境変数設定ガイド](./docs/environment-setup.md)
 
 ### 利用可能なコマンド
 
@@ -120,6 +141,8 @@ npm run test:unit
 
 - [要件定義書](./docs/requirements.md) - プロジェクトの詳細な要件
 - [開発TODO](./docs/development-todo.md) - 開発計画・進捗管理
+- [認証システム](./docs/authentication.md) - 認証の技術仕様
+- [環境変数設定ガイド](./docs/environment-setup.md) - 開発・本番環境の設定方法
 
 ## 🎯 パフォーマンス目標
 
@@ -131,9 +154,10 @@ npm run test:unit
 ## 🔐 セキュリティ
 
 - HTTPS通信の強制
-- OAuth 2.0による安全な認証
+- Google OAuth 2.0による安全な認証
 - SQLインジェクション対策（Drizzle ORM）
 - 適切なアクセス制御・権限管理
+- セッショントークンの暗号化
 
 ## 📝 ライセンス
 
