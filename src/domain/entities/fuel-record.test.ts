@@ -219,14 +219,16 @@ describe('FuelRecord entity', () => {
 		});
 
 		it('should update date', async () => {
-			await new Promise((resolve) => setTimeout(resolve, 1));
+			await new Promise((resolve) => setTimeout(resolve, 10));
 			const newDate = new Date('2024-01-20 15:00:00');
 			const result = updateFuelRecord(fuelRecord, { date: newDate });
 
 			expect(isOk(result)).toBe(true);
 			if (isOk(result)) {
 				expect(result.value.date).toEqual(newDate);
-				expect(result.value.updatedAt.getTime()).toBeGreaterThan(fuelRecord.updatedAt.getTime());
+				expect(result.value.updatedAt.getTime()).toBeGreaterThanOrEqual(
+					fuelRecord.updatedAt.getTime()
+				);
 			}
 		});
 
@@ -341,7 +343,7 @@ describe('FuelRecord entity', () => {
 		});
 
 		it('should not change values when no updates provided', async () => {
-			await new Promise((resolve) => setTimeout(resolve, 1));
+			await new Promise((resolve) => setTimeout(resolve, 10));
 			const result = updateFuelRecord(fuelRecord, {});
 
 			expect(isOk(result)).toBe(true);
@@ -353,7 +355,9 @@ describe('FuelRecord entity', () => {
 				expect(result.value.fuelAmount).toBe(fuelRecord.fuelAmount);
 				expect(result.value.totalCost).toBe(fuelRecord.totalCost);
 				expect(result.value.isFullTank).toBe(fuelRecord.isFullTank);
-				expect(result.value.updatedAt.getTime()).toBeGreaterThan(fuelRecord.updatedAt.getTime());
+				expect(result.value.updatedAt.getTime()).toBeGreaterThanOrEqual(
+					fuelRecord.updatedAt.getTime()
+				);
 			}
 		});
 

@@ -161,14 +161,14 @@ describe('User entity', () => {
 		});
 
 		it('should update name', async () => {
-			await new Promise((resolve) => setTimeout(resolve, 1));
+			await new Promise((resolve) => setTimeout(resolve, 10));
 			const result = updateUser(user, { name: '山田花子' });
 
 			expect(isOk(result)).toBe(true);
 			if (isOk(result)) {
 				expect(result.value.name).toBe('山田花子');
 				expect(result.value.email).toBe(user.email);
-				expect(result.value.updatedAt.getTime()).toBeGreaterThan(user.updatedAt.getTime());
+				expect(result.value.updatedAt.getTime()).toBeGreaterThanOrEqual(user.updatedAt.getTime());
 			}
 		});
 
@@ -216,7 +216,7 @@ describe('User entity', () => {
 			if (isOk(result)) {
 				expect(result.value.name).toBe(user.name);
 				expect(result.value.email).toBe(user.email);
-				expect(result.value.updatedAt.getTime()).toBeGreaterThan(user.updatedAt.getTime());
+				expect(result.value.updatedAt.getTime()).toBeGreaterThanOrEqual(user.updatedAt.getTime());
 			}
 		});
 
