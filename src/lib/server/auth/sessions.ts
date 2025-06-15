@@ -18,16 +18,16 @@ export async function createSession(token: string, userId: string): Promise<Sess
 		userId,
 		expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30) // 30 days
 	};
-	
+
 	await db.insert(sessions).values(session);
 	return session;
 }
 
 export async function validateSessionToken(token: string): Promise<SessionValidationResult> {
 	const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-	
+
 	const result = await db
-		.select({ 
+		.select({
 			user: users,
 			session: sessions
 		})
@@ -38,14 +38,14 @@ export async function validateSessionToken(token: string): Promise<SessionValida
 	if (result.length < 1) {
 		return { session: null, user: null };
 	}
-	
+
 	const { user, session } = result[0];
-	
+
 	if (Date.now() >= session.expiresAt.getTime()) {
 		await db.delete(sessions).where(eq(sessions.id, session.id));
 		return { session: null, user: null };
 	}
-	
+
 	if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 15) {
 		session.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
 		await db
@@ -53,7 +53,7 @@ export async function validateSessionToken(token: string): Promise<SessionValida
 			.set({ expiresAt: session.expiresAt })
 			.where(eq(sessions.id, session.id));
 	}
-	
+
 	return { session, user };
 }
 
@@ -61,6 +61,6 @@ export async function invalidateSession(sessionId: string): Promise<void> {
 	await db.delete(sessions).where(eq(sessions.id, sessionId));
 }
 
-export type SessionValidationResult = 
+export type SessionValidationResult =
 	| { session: Session; user: User }
 	| { session: null; user: null };

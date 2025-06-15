@@ -10,26 +10,27 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 	const code = url.searchParams.get('code');
 	const state = url.searchParams.get('state');
 	const storedState = cookies.get('google_oauth_state') ?? null;
+	const storedCodeVerifier = cookies.get('google_oauth_code_verifier') ?? null;
 
-	if (!code || !state || !storedState || state !== storedState) {
+	if (!code || !state || !storedState || !storedCodeVerifier || state !== storedState) {
 		return new Response(null, {
 			status: 400
 		});
 	}
 
 	try {
-		const tokens = await google.validateAuthorizationCode(code);
-		const googleUser = await getGoogleUser(tokens.accessToken);
+		const tokens = await google.validateAuthorizationCode(code, storedCodeVerifier);
+		const googleUser = await getGoogleUser(tokens.accessToken());
 
 		// Check if user exists
-		let existingUser = await db
+		const existingUser = await db
 			.select()
 			.from(users)
 			.where(eq(users.googleId, googleUser.id))
 			.limit(1);
 
 		let userId: string;
-		
+
 		if (existingUser.length === 0) {
 			// Create new user
 			const newUserId = crypto.randomUUID();
@@ -55,7 +56,7 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 		}
 
 		const sessionToken = generateSessionToken();
-		const session = await createSession(sessionToken, userId);
+		await createSession(sessionToken, userId);
 
 		cookies.set('session', sessionToken, {
 			path: '/',
@@ -64,6 +65,10 @@ export const GET: RequestHandler = async ({ url, cookies }) => {
 			maxAge: 60 * 60 * 24 * 30,
 			sameSite: 'lax'
 		});
+
+		// Clean up OAuth cookies
+		cookies.delete('google_oauth_state', { path: '/' });
+		cookies.delete('google_oauth_code_verifier', { path: '/' });
 
 		return new Response(null, {
 			status: 302,

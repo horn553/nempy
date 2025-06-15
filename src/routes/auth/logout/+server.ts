@@ -9,6 +9,6 @@ export const POST: RequestHandler = async ({ locals, cookies }) => {
 
 	await invalidateSession(locals.session.id);
 	cookies.delete('session', { path: '/' });
-	
+
 	throw redirect(302, '/');
 };
