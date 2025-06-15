@@ -20,32 +20,45 @@
 
 ### 1-C: UIフレームワーク設定
 
-- [ ] Skeleton UIインストール・設定
-- [ ] 基本レイアウトコンポーネント作成
-- [ ] テーマ設定（カラー、フォント）
-- [ ] レスポンシブデザインの基本設定
+- [x] Skeleton UIインストール・設定
+- [x] 基本レイアウトコンポーネント作成
+- [x] テーマ設定（カラー、フォント）
+- [x] レスポンシブデザインの基本設定
+
+### 1-D: Storybook設定
+
+- [ ] 新しいブランチを作成 (storybook-setup)
+- [ ] Storybook for Svelteをインストール
+- [ ] Storybookの設定ファイルを構成
+- [ ] Tailwind CSSをStorybookに統合
+- [ ] Headerコンポーネントのストーリー作成
+- [ ] Sidebarコンポーネントのストーリー作成
+- [ ] Footerコンポーネントのストーリー作成
+- [ ] カードコンポーネントのストーリー作成
+- [ ] Storybookビルドの確認
 
 ## フェーズ2: コアドメイン実装（並行開発可能）
 
 ### 2-A: ドメインモデル実装
 
-- [ ] Userエンティティ
-- [ ] Vehicleエンティティ
-- [ ] FuelRecordエンティティ
-- [ ] 権限（Permission）値オブジェクト
-- [ ] Result型の実装
-- [ ] 共通バリデーションルール
+- [x] Userエンティティ
+- [x] Vehicleエンティティ
+- [x] FuelRecordエンティティ
+- [x] 権限（Permission）値オブジェクト
+- [x] Result型の実装
+- [x] 共通バリデーションルール
 
 ### 2-B: データベーススキーマ
 
-- [ ] usersテーブル
-- [ ] vehiclesテーブル
-- [ ] fuel_recordsテーブル
-- [ ] vehicle_permissionsテーブル
-- [ ] マイグレーションスクリプト
-- [ ] シードデータ
+- [x] usersテーブル
+- [x] vehiclesテーブル
+- [x] fuel_recordsテーブル
+- [x] vehicle_permissionsテーブル
+- [x] マイグレーションスクリプト
+- [x] シードデータ
 
 ### 2-C: 認証基盤
+
 - [x] Lucia設定（Arctic + Oslo使用）
 - [x] Google OAuth 2.0設定
 - [x] 認証ミドルウェア
@@ -184,6 +197,7 @@
 ## 進捗状況
 
 ### 完了済みフェーズ
+
 - ✅ **フェーズ2-C: 認証基盤** (2025-06-14完了)
   - Google OAuth 2.0認証システム
   - セッション管理とミドルウェア
@@ -191,6 +205,7 @@
   - セキュリティ対策（CSRF/XSS）
 
 ### 次のマイルストーン
+
 - 🎯 **フェーズ3-A: リポジトリ実装**
   - UserRepository, VehicleRepository, FuelRecordRepository
   - トランザクション管理
