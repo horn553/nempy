@@ -18,6 +18,8 @@
 - [ ] Drizzle ORM設定
 - [ ] 環境変数設定（開発/本番）
 
+_注記: Phase 1-Bは未実装です。Cloudflare Adapterの基本設定のみ完了しており、実際のインフラ構成要素（D1データベース、Drizzle ORM、Workers設定等）は未実装です。_
+
 ### 1-C: UIフレームワーク設定
 
 - [ ] Skeleton UIインストール・設定
@@ -57,11 +59,11 @@
 
 ### 3-A: リポジトリ実装
 
-- [ ] UserRepository
-- [ ] VehicleRepository
-- [ ] FuelRecordRepository
-- [ ] PermissionRepository
-- [ ] トランザクション管理
+- [x] UserRepository
+- [x] VehicleRepository
+- [x] FuelRecordRepository
+- [x] PermissionRepository
+- [x] トランザクション管理
 
 ### 3-B: ユースケース実装
 
