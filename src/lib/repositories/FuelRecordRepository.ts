@@ -1,45 +1,12 @@
 import type { FuelRecord, Result } from '$lib/domain/types.js';
+import type { IFuelRecordRepository } from './interfaces/IFuelRecordRepository.js';
 
-export interface IFuelRecordRepository {
-	findById(id: string): Promise<Result<FuelRecord | null>>;
-	findByVehicleId(
-		vehicleId: string,
-		limit?: number,
-		offset?: number
-	): Promise<Result<FuelRecord[]>>;
-	findByUserId(userId: string, limit?: number, offset?: number): Promise<Result<FuelRecord[]>>;
-	create(
-		fuelRecord: Omit<FuelRecord, 'id' | 'createdAt' | 'updatedAt'>
-	): Promise<Result<FuelRecord>>;
-	update(
-		id: string,
-		fuelRecord: Partial<
-			Pick<
-				FuelRecord,
-				'date' | 'odometer' | 'fuelAmount' | 'fuelCost' | 'fuelPrice' | 'location' | 'notes'
-			>
-		>
-	): Promise<Result<FuelRecord>>;
-	delete(id: string): Promise<Result<void>>;
-	findByVehicleIdAndDateRange(
-		vehicleId: string,
-		startDate: Date,
-		endDate: Date
-	): Promise<Result<FuelRecord[]>>;
-	getLatestByVehicleId(vehicleId: string): Promise<Result<FuelRecord | null>>;
-	calculateFuelEconomy(
-		vehicleId: string,
-		startDate?: Date,
-		endDate?: Date
-	): Promise<Result<number | null>>;
-}
-
-export class FuelRecordRepository implements IFuelRecordRepository {
+export class DrizzleFuelRecordRepository implements IFuelRecordRepository {
 	constructor(private _db?: unknown) {}
 
 	async findById(_id: string): Promise<Result<FuelRecord | null>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const fuelRecord = await this.db.select().from(fuelRecords).where(eq(fuelRecords.id, id)).get();
 
 			throw new Error(
@@ -59,7 +26,7 @@ export class FuelRecordRepository implements IFuelRecordRepository {
 		_offset = 0
 	): Promise<Result<FuelRecord[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const records = await this.db
 			//   .select()
 			//   .from(fuelRecords)
@@ -81,7 +48,7 @@ export class FuelRecordRepository implements IFuelRecordRepository {
 
 	async findByUserId(_userId: string, _limit = 50, _offset = 0): Promise<Result<FuelRecord[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const records = await this.db
 			//   .select()
 			//   .from(fuelRecords)
@@ -105,7 +72,7 @@ export class FuelRecordRepository implements IFuelRecordRepository {
 		_fuelRecordData: Omit<FuelRecord, 'id' | 'createdAt' | 'updatedAt'>
 	): Promise<Result<FuelRecord>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const now = new Date();
 			// const id = crypto.randomUUID();
 			// const fuelRecord: FuelRecord = {
@@ -138,7 +105,7 @@ export class FuelRecordRepository implements IFuelRecordRepository {
 		>
 	): Promise<Result<FuelRecord>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const updateData = {
 			//   ...fuelRecordData,
 			//   updatedAt: new Date()
@@ -163,7 +130,7 @@ export class FuelRecordRepository implements IFuelRecordRepository {
 
 	async delete(_id: string): Promise<Result<void>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// await this.db.delete(fuelRecords).where(eq(fuelRecords.id, id));
 			// return { success: true, data: undefined };
 
@@ -184,7 +151,7 @@ export class FuelRecordRepository implements IFuelRecordRepository {
 		_endDate: Date
 	): Promise<Result<FuelRecord[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const records = await this.db
 			//   .select()
 			//   .from(fuelRecords)
@@ -210,7 +177,7 @@ export class FuelRecordRepository implements IFuelRecordRepository {
 
 	async getLatestByVehicleId(_vehicleId: string): Promise<Result<FuelRecord | null>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const record = await this.db
 			//   .select()
 			//   .from(fuelRecords)
@@ -236,7 +203,7 @@ export class FuelRecordRepository implements IFuelRecordRepository {
 		_endDate?: Date
 	): Promise<Result<number | null>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// This will calculate fuel economy (distance/fuel) for a vehicle in a given period
 			// const records = startDate && endDate
 			//   ? await this.findByVehicleIdAndDateRange(vehicleId, startDate, endDate)

@@ -1,38 +1,12 @@
 import type { VehiclePermission, Permission, Result } from '$lib/domain/types.js';
+import type { IPermissionRepository } from './interfaces/IPermissionRepository.js';
 
-export interface IPermissionRepository {
-	findById(id: string): Promise<Result<VehiclePermission | null>>;
-	findByVehicleId(vehicleId: string): Promise<Result<VehiclePermission[]>>;
-	findByUserId(userId: string): Promise<Result<VehiclePermission[]>>;
-	findByVehicleAndUser(
-		vehicleId: string,
-		userId: string
-	): Promise<Result<VehiclePermission | null>>;
-	create(
-		permission: Omit<VehiclePermission, 'id' | 'createdAt' | 'updatedAt'>
-	): Promise<Result<VehiclePermission>>;
-	update(
-		id: string,
-		permission: Pick<VehiclePermission, 'permission'>
-	): Promise<Result<VehiclePermission>>;
-	delete(id: string): Promise<Result<void>>;
-	deleteByVehicleAndUser(vehicleId: string, userId: string): Promise<Result<void>>;
-	hasPermission(
-		vehicleId: string,
-		userId: string,
-		requiredPermission: Permission
-	): Promise<Result<boolean>>;
-	getUsersWithAccess(
-		vehicleId: string
-	): Promise<Result<Array<VehiclePermission & { userEmail: string; userName: string }>>>;
-}
-
-export class PermissionRepository implements IPermissionRepository {
+export class DrizzlePermissionRepository implements IPermissionRepository {
 	constructor(private _db?: unknown) {}
 
 	async findById(_id: string): Promise<Result<VehiclePermission | null>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const permission = await this.db.select().from(vehiclePermissions).where(eq(vehiclePermissions.id, id)).get();
 
 			throw new Error(
@@ -48,7 +22,7 @@ export class PermissionRepository implements IPermissionRepository {
 
 	async findByVehicleId(_vehicleId: string): Promise<Result<VehiclePermission[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const permissions = await this.db
 			//   .select()
 			//   .from(vehiclePermissions)
@@ -67,7 +41,7 @@ export class PermissionRepository implements IPermissionRepository {
 
 	async findByUserId(_userId: string): Promise<Result<VehiclePermission[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const permissions = await this.db
 			//   .select()
 			//   .from(vehiclePermissions)
@@ -89,7 +63,7 @@ export class PermissionRepository implements IPermissionRepository {
 		_userId: string
 	): Promise<Result<VehiclePermission | null>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const permission = await this.db
 			//   .select()
 			//   .from(vehiclePermissions)
@@ -116,7 +90,7 @@ export class PermissionRepository implements IPermissionRepository {
 		_permissionData: Omit<VehiclePermission, 'id' | 'createdAt' | 'updatedAt'>
 	): Promise<Result<VehiclePermission>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const now = new Date();
 			// const id = crypto.randomUUID();
 			// const permission: VehiclePermission = {
@@ -144,7 +118,7 @@ export class PermissionRepository implements IPermissionRepository {
 		_permissionData: Pick<VehiclePermission, 'permission'>
 	): Promise<Result<VehiclePermission>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const updateData = {
 			//   ...permissionData,
 			//   updatedAt: new Date()
@@ -169,7 +143,7 @@ export class PermissionRepository implements IPermissionRepository {
 
 	async delete(_id: string): Promise<Result<void>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// await this.db.delete(vehiclePermissions).where(eq(vehiclePermissions.id, id));
 			// return { success: true, data: undefined };
 
@@ -186,7 +160,7 @@ export class PermissionRepository implements IPermissionRepository {
 
 	async deleteByVehicleAndUser(_vehicleId: string, _userId: string): Promise<Result<void>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// await this.db
 			//   .delete(vehiclePermissions)
 			//   .where(
@@ -214,7 +188,7 @@ export class PermissionRepository implements IPermissionRepository {
 		_requiredPermission: Permission
 	): Promise<Result<boolean>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// First check if user is the owner of the vehicle
 			// const vehicle = await this.db.select().from(vehicles).where(eq(vehicles.id, vehicleId)).get();
 			// if (vehicle && vehicle.ownerId === userId) {
@@ -258,7 +232,7 @@ export class PermissionRepository implements IPermissionRepository {
 		_vehicleId: string
 	): Promise<Result<Array<VehiclePermission & { userEmail: string; userName: string }>>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const usersWithAccess = await this.db
 			//   .select({
 			//     id: vehiclePermissions.id,

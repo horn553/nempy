@@ -1,4 +1,8 @@
-export { UserRepository, type IUserRepository } from './UserRepository.js';
-export { VehicleRepository, type IVehicleRepository } from './VehicleRepository.js';
-export { FuelRecordRepository, type IFuelRecordRepository } from './FuelRecordRepository.js';
-export { PermissionRepository, type IPermissionRepository } from './PermissionRepository.js';
+// Interfaces
+export * from './interfaces/index.js';
+
+// Drizzle ORM Implementations
+export { DrizzleUserRepository } from './UserRepository.js';
+export { DrizzleVehicleRepository } from './VehicleRepository.js';
+export { DrizzleFuelRecordRepository } from './FuelRecordRepository.js';
+export { DrizzlePermissionRepository } from './PermissionRepository.js';

@@ -13,7 +13,10 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test": "npm run test:unit -- --run",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate",
+		"db:studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
@@ -23,6 +26,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
+		"drizzle-kit": "^0.31.1",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^3.0.0",
@@ -38,5 +42,9 @@
 		"typescript-eslint": "^8.20.0",
 		"vite": "^6.2.6",
 		"vitest": "^3.2.3"
+	},
+	"dependencies": {
+		"@cloudflare/workers-types": "^4.20250614.0",
+		"drizzle-orm": "^0.44.2"
 	}
 }

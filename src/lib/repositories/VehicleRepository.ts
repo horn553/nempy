@@ -1,24 +1,12 @@
 import type { Vehicle, Result } from '$lib/domain/types.js';
+import type { IVehicleRepository } from './interfaces/IVehicleRepository.js';
 
-export interface IVehicleRepository {
-	findById(id: string): Promise<Result<Vehicle | null>>;
-	findByOwnerId(ownerId: string): Promise<Result<Vehicle[]>>;
-	create(vehicle: Omit<Vehicle, 'id' | 'createdAt' | 'updatedAt'>): Promise<Result<Vehicle>>;
-	update(
-		id: string,
-		vehicle: Partial<Pick<Vehicle, 'name' | 'manufacturer' | 'model' | 'year' | 'fuelType'>>
-	): Promise<Result<Vehicle>>;
-	delete(id: string): Promise<Result<void>>;
-	findAll(limit?: number, offset?: number): Promise<Result<Vehicle[]>>;
-	findByUserAccess(userId: string): Promise<Result<Vehicle[]>>;
-}
-
-export class VehicleRepository implements IVehicleRepository {
+export class DrizzleVehicleRepository implements IVehicleRepository {
 	constructor(private _db?: unknown) {}
 
 	async findById(_id: string): Promise<Result<Vehicle | null>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const vehicle = await this.db.select().from(vehicles).where(eq(vehicles.id, id)).get();
 
 			throw new Error(
@@ -34,7 +22,7 @@ export class VehicleRepository implements IVehicleRepository {
 
 	async findByOwnerId(_ownerId: string): Promise<Result<Vehicle[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const vehicles = await this.db.select().from(vehicles).where(eq(vehicles.ownerId, ownerId));
 
 			throw new Error(
@@ -52,7 +40,7 @@ export class VehicleRepository implements IVehicleRepository {
 		_vehicleData: Omit<Vehicle, 'id' | 'createdAt' | 'updatedAt'>
 	): Promise<Result<Vehicle>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const now = new Date();
 			// const id = crypto.randomUUID();
 			// const vehicle: Vehicle = {
@@ -80,7 +68,7 @@ export class VehicleRepository implements IVehicleRepository {
 		_vehicleData: Partial<Pick<Vehicle, 'name' | 'manufacturer' | 'model' | 'year' | 'fuelType'>>
 	): Promise<Result<Vehicle>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const updateData = {
 			//   ...vehicleData,
 			//   updatedAt: new Date()
@@ -105,7 +93,7 @@ export class VehicleRepository implements IVehicleRepository {
 
 	async delete(_id: string): Promise<Result<void>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// await this.db.delete(vehicles).where(eq(vehicles.id, id));
 			// return { success: true, data: undefined };
 
@@ -122,7 +110,7 @@ export class VehicleRepository implements IVehicleRepository {
 
 	async findAll(_limit = 50, _offset = 0): Promise<Result<Vehicle[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// const vehicles = await this.db.select().from(vehicles).limit(limit).offset(offset);
 			// return { success: true, data: vehicles };
 
@@ -139,7 +127,7 @@ export class VehicleRepository implements IVehicleRepository {
 
 	async findByUserAccess(_userId: string): Promise<Result<Vehicle[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
+			// TODO: Implement with Drizzle ORM
 			// This should return vehicles owned by user OR vehicles user has permission to access
 			// const vehicles = await this.db
 			//   .select()

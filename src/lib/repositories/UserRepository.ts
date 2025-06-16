@@ -1,132 +1,163 @@
+import { eq } from 'drizzle-orm';
 import type { User, Result } from '$lib/domain/types.js';
+import type { IUserRepository } from './interfaces/IUserRepository.js';
+import type { DatabaseConnection } from '$lib/database/connection.js';
+import { users } from '$lib/database/schema.js';
+import { generateId, toISOString, fromISOString } from '$lib/database/utils.js';
 
-export interface IUserRepository {
-	findById(id: string): Promise<Result<User | null>>;
-	findByEmail(email: string): Promise<Result<User | null>>;
-	create(user: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<Result<User>>;
-	update(id: string, user: Partial<Pick<User, 'name' | 'avatar'>>): Promise<Result<User>>;
-	delete(id: string): Promise<Result<void>>;
-	findAll(limit?: number, offset?: number): Promise<Result<User[]>>;
-}
+export class DrizzleUserRepository implements IUserRepository {
+	constructor(private db: DatabaseConnection) {}
 
-export class UserRepository implements IUserRepository {
-	constructor(private _db?: unknown) {}
-
-	async findById(_id: string): Promise<Result<User | null>> {
+	async findById(id: string): Promise<Result<User | null>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
-			// const user = await this.db.select().from(users).where(eq(users.id, id)).get();
+			const result = await this.db.select().from(users).where(eq(users.id, id)).get();
 
-			throw new Error(
-				'Database not configured. Phase 1-B (Infrastructure) must be completed first.'
-			);
+			if (!result) {
+				return { success: true, data: null };
+			}
+
+			const user: User = {
+				id: result.id,
+				email: result.email,
+				name: result.name,
+				avatar: result.avatar || undefined,
+				createdAt: fromISOString(result.createdAt),
+				updatedAt: fromISOString(result.updatedAt)
+			};
+
+			return { success: true, data: user };
 		} catch (error) {
 			return {
 				success: false,
-				error: error instanceof Error ? error : new Error('Unknown error occurred')
+				error: error instanceof Error ? error : new Error('Database query failed')
 			};
 		}
 	}
 
-	async findByEmail(_email: string): Promise<Result<User | null>> {
+	async findByEmail(email: string): Promise<Result<User | null>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
-			// const user = await this.db.select().from(users).where(eq(users.email, email)).get();
+			const result = await this.db.select().from(users).where(eq(users.email, email)).get();
 
-			throw new Error(
-				'Database not configured. Phase 1-B (Infrastructure) must be completed first.'
-			);
+			if (!result) {
+				return { success: true, data: null };
+			}
+
+			const user: User = {
+				id: result.id,
+				email: result.email,
+				name: result.name,
+				avatar: result.avatar || undefined,
+				createdAt: fromISOString(result.createdAt),
+				updatedAt: fromISOString(result.updatedAt)
+			};
+
+			return { success: true, data: user };
 		} catch (error) {
 			return {
 				success: false,
-				error: error instanceof Error ? error : new Error('Unknown error occurred')
+				error: error instanceof Error ? error : new Error('Database query failed')
 			};
 		}
 	}
 
-	async create(_userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<Result<User>> {
+	async create(userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<Result<User>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
-			// const now = new Date();
-			// const id = crypto.randomUUID();
-			// const user: User = {
-			//   id,
-			//   ...userData,
-			//   createdAt: now,
-			//   updatedAt: now
-			// };
-			// await this.db.insert(users).values(user);
-			// return { success: true, data: user };
+			const now = new Date();
+			const id = generateId();
 
-			throw new Error(
-				'Database not configured. Phase 1-B (Infrastructure) must be completed first.'
-			);
+			const insertData = {
+				id,
+				email: userData.email,
+				name: userData.name,
+				avatar: userData.avatar || null,
+				createdAt: toISOString(now),
+				updatedAt: toISOString(now)
+			};
+
+			await this.db.insert(users).values(insertData);
+
+			const user: User = {
+				id,
+				email: userData.email,
+				name: userData.name,
+				avatar: userData.avatar,
+				createdAt: now,
+				updatedAt: now
+			};
+
+			return { success: true, data: user };
 		} catch (error) {
 			return {
 				success: false,
-				error: error instanceof Error ? error : new Error('Unknown error occurred')
+				error: error instanceof Error ? error : new Error('Failed to create user')
 			};
 		}
 	}
 
 	async update(
-		_id: string,
-		_userData: Partial<Pick<User, 'name' | 'avatar'>>
+		id: string,
+		userData: Partial<Pick<User, 'name' | 'avatar'>>
 	): Promise<Result<User>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
-			// const updateData = {
-			//   ...userData,
-			//   updatedAt: new Date()
-			// };
-			// await this.db.update(users).set(updateData).where(eq(users.id, id));
-			// const updatedUser = await this.findById(id);
-			// if (!updatedUser.success || !updatedUser.data) {
-			//   throw new Error('User not found after update');
-			// }
-			// return { success: true, data: updatedUser.data };
+			const updateData = {
+				...userData,
+				avatar: userData.avatar || null,
+				updatedAt: toISOString(new Date())
+			};
 
-			throw new Error(
-				'Database not configured. Phase 1-B (Infrastructure) must be completed first.'
-			);
+			await this.db.update(users).set(updateData).where(eq(users.id, id));
+
+			const updatedUser = await this.findById(id);
+			if (!updatedUser.success) {
+				return updatedUser;
+			}
+
+			if (!updatedUser.data) {
+				return {
+					success: false,
+					error: new Error('User not found after update')
+				};
+			}
+
+			return { success: true, data: updatedUser.data };
 		} catch (error) {
 			return {
 				success: false,
-				error: error instanceof Error ? error : new Error('Unknown error occurred')
+				error: error instanceof Error ? error : new Error('Failed to update user')
 			};
 		}
 	}
 
-	async delete(_id: string): Promise<Result<void>> {
+	async delete(id: string): Promise<Result<void>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
-			// await this.db.delete(users).where(eq(users.id, id));
-			// return { success: true, data: undefined };
-
-			throw new Error(
-				'Database not configured. Phase 1-B (Infrastructure) must be completed first.'
-			);
+			await this.db.delete(users).where(eq(users.id, id));
+			return { success: true, data: undefined };
 		} catch (error) {
 			return {
 				success: false,
-				error: error instanceof Error ? error : new Error('Unknown error occurred')
+				error: error instanceof Error ? error : new Error('Failed to delete user')
 			};
 		}
 	}
 
-	async findAll(_limit = 50, _offset = 0): Promise<Result<User[]>> {
+	async findAll(limit = 50, offset = 0): Promise<Result<User[]>> {
 		try {
-			// TODO: Implement when Drizzle ORM is configured
-			// const users = await this.db.select().from(users).limit(limit).offset(offset);
-			// return { success: true, data: users };
+			const results = await this.db.select().from(users).limit(limit).offset(offset);
 
-			throw new Error(
-				'Database not configured. Phase 1-B (Infrastructure) must be completed first.'
-			);
+			const userList: User[] = results.map((result) => ({
+				id: result.id,
+				email: result.email,
+				name: result.name,
+				avatar: result.avatar || undefined,
+				createdAt: fromISOString(result.createdAt),
+				updatedAt: fromISOString(result.updatedAt)
+			}));
+
+			return { success: true, data: userList };
 		} catch (error) {
 			return {
 				success: false,
-				error: error instanceof Error ? error : new Error('Unknown error occurred')
+				error: error instanceof Error ? error : new Error('Failed to fetch users')
 			};
 		}
 	}

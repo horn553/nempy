@@ -62,4 +62,6 @@ export type Result<T, E = Error> =
 export interface DatabaseTransaction {
 	commit(): Promise<void>;
 	rollback(): Promise<void>;
+	// For Cloudflare D1 Unit of Work pattern
+	addOperation?(statement: unknown, params?: unknown[]): void;
 }
